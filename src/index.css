@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Enhanced Fire Text Animation */
+.fire-text {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(to right, #ff4d4d, #f59e0b, #f97316);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
+  animation: flicker 3s infinite;
+}
+
+.fire-text::before,
+.fire-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #ff4d4d, #f59e0b, #ff4d4d);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fire 4s ease-in-out infinite;
+  filter: blur(8px);
+}
+
+.fire-text::before {
+  opacity: 0.8;
+  animation: fire 6s ease-in-out infinite, glow 3s ease-in-out infinite;
+  z-index: -2;
+}
+
+.fire-text::after {
+  opacity: 0.4;
+  animation: fire 8s ease-in-out infinite reverse, glow 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes fire {
+  0%, 100% {
+    background-position: 0% 50%;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: translateY(-5px) scale(1.05);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    filter: blur(8px) brightness(1);
+  }
+  50% {
+    filter: blur(12px) brightness(1.3);
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+/* Tab Colors */
+.tab-blue {
+  --tab-gradient: theme('colors.blue.500'), theme('colors.blue.600');
+  --tab-gradient-hover: theme('colors.blue.500/15'), theme('colors.blue.600/5');
+  --tab-glow: linear-gradient(45deg, rgba(59, 130, 246, 0.5), rgba(37, 99, 235, 0.5));
+  --tab-glow-hover: rgba(59, 130, 246, 0.2);
+}
+
+.tab-purple {
+  --tab-gradient: theme('colors.purple.500'), theme('colors.purple.600');
+  --tab-gradient-hover: theme('colors.purple.500/15'), theme('colors.purple.600/5');
+  --tab-glow: linear-gradient(45deg, rgba(147, 51, 234, 0.5), rgba(126, 34, 206, 0.5));
+  --tab-glow-hover: rgba(147, 51, 234, 0.2);
+}
+
+.tab-amber {
+  --tab-gradient: theme('colors.amber.500'), theme('colors.amber.600');
+  --tab-gradient-hover: theme('colors.amber.500/15'), theme('colors.amber.600/5');
+  --tab-glow: linear-gradient(45deg, rgba(245, 158, 11, 0.5), rgba(217, 119, 6, 0.5));
+  --tab-glow-hover: rgba(245, 158, 11, 0.2);
+}
+
+.tab-emerald {
+  --tab-gradient: theme('colors.emerald.500'), theme('colors.emerald.600');
+  --tab-gradient-hover: theme('colors.emerald.500/15'), theme('colors.emerald.600/5');
+  --tab-glow: linear-gradient(45deg, rgba(16, 185, 129, 0.5), rgba(5, 150, 105, 0.5));
+  --tab-glow-hover: rgba(16, 185, 129, 0.2);
+}
+
+.tab-slate {
+  --tab-gradient: theme('colors.slate.500'), theme('colors.slate.600');
+  --tab-gradient-hover: theme('colors.slate.500/15'), theme('colors.slate.600/5');
+  --tab-glow: linear-gradient(45deg, rgba(100, 116, 139, 0.5), rgba(71, 85, 105, 0.5));
+  --tab-glow-hover: rgba(100, 116, 139, 0.2);
+}
+
+.tab-orange {
+  --tab-gradient: theme('colors.orange.500'), theme('colors.orange.600');
+  --tab-gradient-hover: theme('colors.orange.500/15'), theme('colors.orange.600/5');
+  --tab-glow: linear-gradient(45deg, rgba(249, 115, 22, 0.5), rgba(234, 88, 12, 0.5));
+  --tab-glow-hover: rgba(249, 115, 22, 0.2);
+}
+
+.tab-trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  font-weight: 500;
+  min-height: 3.5rem;
+  line-height: 1;
+  overflow: hidden;
+}
+
+.tab-trigger svg {
+  margin-top: -1px;
+}
+
+.tab-trigger[data-state="active"] {
+  background: linear-gradient(to bottom, var(--tab-gradient));
+  transform: translateY(-1px);
+}
+
+.tab-trigger:not([data-state="active"]):hover {
+  background: linear-gradient(to bottom, var(--tab-gradient-hover));
+  box-shadow: 0 0 20px var(--tab-glow-hover);
+  transform: translateY(-1px);
+}
+
+.tab-trigger[data-state="active"]::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--tab-glow);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
